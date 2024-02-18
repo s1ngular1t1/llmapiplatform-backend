@@ -1,13 +1,15 @@
 from typing import Union
-
-from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
-import httpx
+from fastapi import FastAPI, HTTPException
 import requests
+from gemini_api import text
+import uvicorn
 
 app = FastAPI()
 
+class PromptRequest(BaseModel):
+    prompt: str
 
 @app.get("/")
 def read_root():
@@ -17,28 +19,18 @@ def read_root():
 def read_item(item_id: int, q: Union[str, None] = None):
     return {"item_id": item_id, "q": q}
 
-#TODO: post endpoint for bard api 
-BARD_API_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
-API_KEY = "db8eea92532f3da2a5c66888c6761551de36487d"
-
-# Define a request model for your endpoint
-class QuestionRequest(BaseModel):
-    question: str
-
+#post endpoint for gemini api
 @app.post("/ask-bard")
-async def ask_bard(request: QuestionRequest):
-    async with httpx.AsyncClient() as client:
-        try:
-            response = await client.post(
-                BARD_API_ENDPOINT,
-                json={"contents": [{"parts": [{"text": request.question}]}]}, # Adjusted to match your API's expected payload structure
-                headers={"Authorization": f"Bearer {API_KEY}"}
-            )
-            response.raise_for_status()
-        except httpx.HTTPStatusError as e:
-            raise HTTPException(status_code=e.response.status_code, detail=str(e))
+def gemini(prompt_request: PromptRequest):
+    prompt = prompt_request.prompt
+    response = text(prompt)
+    print(f"This is the request prompt: {prompt}")
+    # Assuming the `text` function properly handles the prompt
+    # You would include your logic here to process the prompt and generate a response
+    return {"response": response}
 
-        return response.json()
+if __name__ == "__main__":
+    uvicorn.run(app, port = 8000)
 
 #post endpoint for perplexity api 
 @app.post("/perplexity")
