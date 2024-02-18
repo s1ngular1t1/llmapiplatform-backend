@@ -15,7 +15,7 @@ def to_markdown(text):
   return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))
 
 # Or use `os.getenv('GOOGLE_API_KEY')` to fetch an environment variable.
-GOOGLE_API_KEY= os.getenv('GOOGLE_API_KEY')
+GOOGLE_API_KEY= "AIzaSyADRh1wRPX6akSTQkEqLJbNlqECURnfaUI"
 
 genai.configure(api_key=GOOGLE_API_KEY)
 
@@ -29,5 +29,4 @@ def text(prompt):
   to_markdown(response.text)
   return response.text
 
-
-
+print(text("What is the meaning of life? keep it short"))

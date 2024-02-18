@@ -4,7 +4,7 @@ from openai import AsyncOpenAI
 
 client = AsyncOpenAI(
     # This is the default and can be omitted
-    api_key="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",
+    api_key="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",
 )
 
 

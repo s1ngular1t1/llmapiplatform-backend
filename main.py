@@ -11,6 +11,9 @@ from chatgptapi import chat_gpt_test,generate_response
 
 app = FastAPI()
 
+if __name__ == "__main__":
+    uvicorn.run(app, port = 8000)
+    
 class PromptRequest(BaseModel):
     prompt: str
 
@@ -32,8 +35,6 @@ def gemini(prompt_request: PromptRequest):
     # You would include your logic here to process the prompt and generate a response
     return {"response": response}
 
-if __name__ == "__main__":
-    uvicorn.run(app, port = 8000)
 
 #post endpoint for perplexity api 
 @app.post("/perplexity")
