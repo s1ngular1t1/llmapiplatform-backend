@@ -22,9 +22,10 @@ genai.configure(api_key=GOOGLE_API_KEY)
 model = genai.GenerativeModel('gemini-pro')
 
 def text(prompt):
-  model = genai.GenerativeModel('gemini_pro')
+  model = genai.GenerativeModel('gemini-pro')
   print("This is the request prompt: {}".format(prompt))
   response = model.generate_content(prompt)
+  print("the backend server response", response.text)
   to_markdown(response.text)
   return response.text
 
