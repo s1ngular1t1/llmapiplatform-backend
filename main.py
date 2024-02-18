@@ -6,6 +6,9 @@ from pydantic import BaseModel
 import httpx
 import requests
 
+
+from chatgptapi import chat_gpt_test,generate_response
+
 app = FastAPI()
 
 
@@ -70,9 +73,11 @@ def post_perplexity_request():
 
 #post endpoint for gpt-4 api:
 @app.post("/gpt-4")
-def post_gpt4_request():
-    return {"message": "GPT-4 created successfully"}
+async def get_gpt4_response(prompt: str):
+    response_message = await generate_response(prompt)
+    return {"message": response_message}
 
-
-
-
+@app.get("/gpt-4-test")
+async def gpt_response():
+    response = await chat_gpt_test()
+    return {"Hello": response}
