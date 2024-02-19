@@ -1,11 +1,8 @@
-import pathlib
 import textwrap
-import os
 
 import google.generativeai as genai
 from dotenv import load_dotenv
 
-from IPython.display import display
 from IPython.display import Markdown
 
 load_dotenv()
