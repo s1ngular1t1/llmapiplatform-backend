@@ -25,5 +25,3 @@ def text(prompt):
   print("the backend server response", response.text)
   to_markdown(response.text)
   return response.text
-
-print(text("What is the meaning of life? keep it short"))

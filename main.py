@@ -7,7 +7,7 @@ from gemini_api import text
 import uvicorn
 
 
-from chatgptapi import chat_gpt_test,generate_response
+from chatgpt_api import chat_gpt_test,generate_response
 
 app = FastAPI()
 
